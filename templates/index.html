@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart AI Study Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="logo-text">
+                    <span>AI Study Planner</span>
+                    <small>Smart Learning</small>
+                </div>
+            </div>
+            
+            <form id="studyForm" class="study-form" autocomplete="off">
+                <h2><i class="fas fa-user-graduate"></i> Your Details</h2>
+                
+                <div class="form-group">
+                    <label for="studentName">Your Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="studentName" placeholder="Enter your name" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subjects">Subjects & Topics</label>
+                    <div class="input-wrapper textarea-wrapper">
+                        <i class="fas fa-book-open"></i>
+                        <textarea id="subjects" rows="4" placeholder="Enter subjects and topics" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration">Duration (in days)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar-days"></i>
+                        <input type="number" id="duration" min="1" max="365" value="7" required>
+                    </div>
+                    <small>How many days do you want to study?</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dailyHours">Daily Study Hours</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-clock"></i>
+                        <input type="number" id="dailyHours" min="1" max="12" value="4" required>
+                    </div>
+                    <small>How many hours can you study per day?</small>
+                </div>
+                
+                <input type="hidden" id="uiLanguage" value="english">
+                
+                <button type="submit" class="btn-generate" id="generateBtn">
+                    <span class="btn-content"><i class="fas fa-wand-magic-sparkles"></i> Generate My Plan</span>
+                </button>
+            </form>
+            
+            <div class="sidebar-footer">
+                <p>Made with <i class="fas fa-heart"></i> for students</p>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-content">
+                    <h1><i class="fas fa-sparkles"></i> Your Study Dashboard</h1>
+                    <p>Track your personalized study adventure</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn-action theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                        <span>Theme</span>
+                    </button>
+                    <div class="language-selector">
+                        <button class="btn-action language-toggle" id="languageToggle">
+                            <i class="fas fa-globe"></i>
+                            <span id="currentLangLabel">English</span>
+                            <i class="fas fa-chevron-down" style="font-size: 10px;"></i>
+                        </button>
+                        <div class="language-dropdown" id="languageDropdown">
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="hi">हिंदी</div>
+                            <div class="language-option" data-lang="es">Español</div>
+                            <div class="language-option" data-lang="fr">Français</div>
+                            <div class="language-option" data-lang="de">Deutsch</div>
+                            <div class="language-option" data-lang="zh">中文</div>
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="ja">日本語</div>
+                            <div class="language-option" data-lang="pt">Português</div>
+                            <div class="language-option" data-lang="ru">Русский</div>
+                        </div>
+                    </div>
+                    <div class="header-actions" id="headerActions" style="display: none;">
+                        <button class="btn-action" id="copyBtn">
+                            <i class="fas fa-copy"></i>
+                            <span>Copy</span>
+                        </button>
+                        <button class="btn-action" id="downloadBtn">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        <button class="btn-action" id="shareBtn">
+                            <i class="fas fa-share-alt"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-area" id="contentArea">
+                <div class="welcome-card" id="welcomeCard">
+                    <div class="welcome-bg-elements">
+                        <div class="floating-element" style="top: 10%; left: 10%; animation-delay: 0s;"><i class="fas fa-book"></i></div>
+                        <div class="floating-element" style="top: 20%; right: 15%; animation-delay: 0.5s;"><i class="fas fa-brain"></i></div>
+                        <div class="floating-element" style="bottom: 25%; left: 20%; animation-delay: 1s;"><i class="fas fa-lightbulb"></i></div>
+                        <div class="floating-element" style="bottom: 15%; right: 10%; animation-delay: 1.5s;"><i class="fas fa-rocket"></i></div>
+                        <div class="floating-element" style="top: 50%; left: 5%; animation-delay: 2s;"><i class="fas fa-pencil"></i></div>
+                        <div class="floating-element" style="top: 40%; right: 5%; animation-delay: 2.5s;"><i class="fas fa-graduation-cap"></i></div>
+                    </div>
+                    <div class="welcome-illustration">
+                        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="200" cy="150" r="80" fill="rgba(255,255,255,0.1)"/>
+                            <circle cx="160" cy="130" r="25" fill="rgba(167,139,250,0.3)"/>
+                            <circle cx="240" cy="140" r="20" fill="rgba(236,72,153,0.3)"/>
+                            <circle cx="200" cy="180" r="30" fill="rgba(102,126,234,0.3)"/>
+                            <path d="M170 150 L190 170 L230 130" stroke="rgba(255,255,255,0.6)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="200" cy="120" r="15" fill="rgba(255,255,255,0.8)"/>
+                            <path d="M130 200 Q150 180 170 200 Q190 220 210 200" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="none"/>
+                            <path d="M220 210 Q250 190 280 210" stroke="rgba(255,255,255,0.3)" stroke-width="4" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="welcome-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2>Ready to Study Smarter?</h2>
+                    <p>Tell us about your subjects and duration, and we'll create a personalized roadmap to help you learn!</p>
+                    <div class="features">
+                        <div class="feature">
+                            <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+                            <span>Day-wise Schedule</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                            <span>Topic Breakdown</span>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon"><i class="fas fa-video"></i></div>
+                            <span>Free Resources</span>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="loader-container" id="loader" style="display: none;">
+                    <div class="loader">
+                        <div class="loader-emoji">📚</div>
+                        <div class="loader-text">Crafting your perfect study plan...</div>
+                    </div>
+                </div>
+                
+                <div class="study-plan-container" id="studyPlanContainer" style="display: none;">
+                    <div class="student-info-card" id="studentInfoCard"></div>
+                    <div class="study-plan" id="studyPlan"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <div class="celebration-container" id="celebrationContainer" style="display: none;">
+        <div class="celebration-text" id="celebrationText">Milestone Achieved!</div>
+        <div class="celebration-subtext" id="celebrationSubtext">You've completed all your tasks!</div>
+        <div class="confetti" id="confetti"></div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
