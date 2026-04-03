@@ -96,8 +96,8 @@ ollama pull llama3.2
 ### 🔹 Installation
 
 ```bash
-git clone https://github.com/rishabh192000/AI-Study-Planner.git
-cd AI-Study-Planner
+git clone https://github.com/rishabh192000/ai-study-planner.git
+cd ai-study-planner
 ```
 
 ---
